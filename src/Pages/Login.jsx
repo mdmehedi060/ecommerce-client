@@ -1,20 +1,25 @@
-import { useState } from "react";
-import LoginIcons from "../assets/signin.gif";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useContext, useState } from 'react';
+import LoginIcons from '../assets/signin.gif';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import SummaryApi from '../common';
+import Context from '../context/index';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
-  const handleOnChange = (e) => {
+  const navigate = useNavigate();
+  const { fetchUserDetails } = useContext(Context);
+  const handleOnChange = e => {
     const { name, value } = e.target;
 
-    setData((preve) => {
+    setData(preve => {
       return {
         ...preve,
         [name]: value,
@@ -22,9 +27,33 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    const dataResponse = await fetch(SummaryApi.signIn.url, {
+      method: SummaryApi.signIn.method,
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const dataApi = await dataResponse.json();
+
+    if (dataApi.success) {
+      toast.success(dataApi.message);
+      navigate('/');
+      fetchUserDetails();
+      // fetchUserAddToCart();
+    }
+
+    if (dataApi.error) {
+      toast.error(dataApi.message);
+    }
   };
+
+  console.log('data login', data);
 
   return (
     <section id="login">
@@ -51,7 +80,7 @@ const Login = () => {
               <label htmlFor="">Password Id: </label>
               <div className="bg-slate-100 p-2 flex">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Enter Password"
                   value={data.password}
                   name="password"
@@ -61,14 +90,14 @@ const Login = () => {
                 <div>
                   <span
                     className="cursor-pointer text-xl"
-                    onClick={() => setShowPassword((preve) => !preve)}
+                    onClick={() => setShowPassword(preve => !preve)}
                   >
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
               </div>
               <Link
-                to={"/forgot-password"}
+                to={'/forgot-password'}
                 className="block w-fit ml-auto hover:underline hover:text-red-600"
               >
                 Forgot password ?
@@ -79,9 +108,9 @@ const Login = () => {
             </button>
           </form>
           <p className="my-5">
-            Don't have account ?{" "}
+            Don't have account ?{' '}
             <Link
-              to={"/signup"}
+              to={'/signup'}
               className=" text-red-600 hover:text-red-700 hover:underline"
             >
               Sign up
