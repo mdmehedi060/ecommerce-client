@@ -1,29 +1,29 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "../Pages/Home";
-import App from "../App";
-import Login from "../Pages/Login";
-import ForgotPassword from "../Pages/ForgotPassword";
-import Signup from "../Pages/Signup";
+import { createBrowserRouter } from 'react-router-dom';
+import Home from '../Pages/Home';
+import App from '../App';
+import Login from '../Pages/Login';
+import ForgotPassword from '../Pages/ForgotPassword';
+import Signup from '../Pages/Signup';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App></App>,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home></Home>,
       },
       {
-        path: "/login",
+        path: '/login',
         element: <Login></Login>,
       },
       {
-        path: "/signup",
+        path: '/signup',
         element: <Signup></Signup>,
       },
       {
-        path: "/forgot-password",
+        path: '/forgot-password',
         element: <ForgotPassword></ForgotPassword>,
       },
     ],

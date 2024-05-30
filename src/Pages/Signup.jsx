@@ -1,27 +1,31 @@
-import { useState } from "react";
-import loginIcons from "../assets/signin.gif";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import imageTobase64 from "../Components/Helpers/imageTobase64";
+import { useState } from 'react';
+import loginIcons from '../assets/signin.gif';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import imageTobase64 from '../Components/Helpers/imageTobase64';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [data, setData] = useState({
-    email: "",
-    password: "",
-    name: "",
-    confirmPassword: "",
-    profilePic: "",
+    email: '',
+    password: '',
+    name: '',
+    confirmPassword: '',
+    profilePic: '',
   });
 
-  const handleUploadPic = async (e) => {
+  const navigate = useNavigate();
+
+  const handleUploadPic = async e => {
     const file = e.target.files[0];
 
     const imagePic = await imageTobase64(file);
 
-    setData((preve) => {
+    setData(preve => {
       return {
         ...preve,
         profilePic: imagePic,
@@ -29,10 +33,10 @@ const Signup = () => {
     });
   };
 
-  const handleOnChange = (e) => {
+  const handleOnChange = e => {
     const { name, value } = e.target;
 
-    setData((preve) => {
+    setData(preve => {
       return {
         ...preve,
         [name]: value,
@@ -40,9 +44,32 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    if (data.password === data.confirmPassword) {
+      const dataResponse = await fetch(SummaryApi.signUP.url, {
+        method: SummaryApi.signUP.method,
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      const dataApi = await dataResponse.json();
+      if (dataApi.success) {
+        toast.success(dataApi.message);
+        navigate('/login');
+      }
+      if (dataApi.error) {
+        toast.error(dataApi.message);
+      }
+
+      console.log('data', dataApi);
+    } else {
+      console.log('Please check password and confirm password');
+    }
   };
+
   return (
     <section id="signup">
       <div className="mx-auto container p-4">
@@ -99,7 +126,7 @@ const Signup = () => {
               <label>Password : </label>
               <div className="bg-slate-100 p-2 flex">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="enter password"
                   value={data.password}
                   name="password"
@@ -109,7 +136,7 @@ const Signup = () => {
                 />
                 <div
                   className="cursor-pointer text-xl"
-                  onClick={() => setShowPassword((preve) => !preve)}
+                  onClick={() => setShowPassword(preve => !preve)}
                 >
                   <span>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
                 </div>
@@ -120,7 +147,7 @@ const Signup = () => {
               <label>Confirm Password : </label>
               <div className="bg-slate-100 p-2 flex">
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="enter confirm password"
                   value={data.confirmPassword}
                   name="confirmPassword"
@@ -131,7 +158,7 @@ const Signup = () => {
 
                 <div
                   className="cursor-pointer text-xl"
-                  onClick={() => setShowConfirmPassword((preve) => !preve)}
+                  onClick={() => setShowConfirmPassword(preve => !preve)}
                 >
                   <span>
                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -146,9 +173,9 @@ const Signup = () => {
           </form>
 
           <p className="my-5">
-            Already have account ?{" "}
+            Already have account ?{' '}
             <Link
-              to={"/login"}
+              to={'/login'}
               className=" text-red-600 hover:text-red-700 hover:underline"
             >
               Login
