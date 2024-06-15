@@ -1,14 +1,19 @@
-import Logo from '../assets/logo3.png';
+import React, { useContext, useState } from 'react';
+import Logo from './Logo';
 import { GrSearch } from 'react-icons/gr';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
+import { setUserDetails } from '../store/userSlice';
+import ROLE from '../common/role';
 import Context from '../context';
 
 const Header = () => {
   const user = useSelector(state => state?.user?.user);
+  const dispatch = useDispatch();
   const [menuDisplay, setMenuDisplay] = useState(false);
   const context = useContext(Context);
   const navigate = useNavigate();
@@ -47,28 +52,32 @@ const Header = () => {
     }
   };
   return (
-    <header className="h-16 shadow-md bg-white">
-      <div className="h-full container mx-auto flex items-center px-4 justify-between">
-        <div className="flex items-center">
-          <Link to="/">
-            <img className="h-10 w-10" src={Logo} alt="" />
+    <header className="h-16 shadow-md bg-white fixed w-full z-40">
+      <div className=" h-full container mx-auto flex items-center px-4 justify-between">
+        <div>
+          <Link className="flex gap-2 justify-center" to={'/'}>
+            <img
+              className="w-10 h-10"
+              src="https://i.ibb.co/jHRWncw/logo3.png"
+              alt=""
+            />
+            <h1 className="text-2xl text-sky-400 font-bold">Tangail Shop</h1>
           </Link>
-          <div>
-            <h2 className="text-2xl text-blue-400  font-bold  text-center">
-              Tangail Shop
-            </h2>
-          </div>
         </div>
-        <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-2">
+
+        <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2">
           <input
             type="text"
-            placeholder="Search Product here..."
+            placeholder="search product here..."
             className="w-full outline-none"
+            onChange={handleSearch}
+            value={search}
           />
-          <div className="text-lg min-w-[50px] h-8 flex justify-center items-center bg-red-600 rounded-r-full text-white ">
+          <div className="text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white">
             <GrSearch />
           </div>
         </div>
+
         <div className="flex items-center gap-7">
           <div className="relative flex justify-center">
             {user?._id && (
@@ -87,7 +96,15 @@ const Header = () => {
                 )}
               </div>
             )}
-
+            {/* <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded">
+              <Link
+                to={'/admin-panel'}
+                className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
+                onClick={() => setMenuDisplay(preve => !preve)}
+              >
+                Admin Panel
+              </Link>
+            </div> */}
             {menuDisplay && (
               <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded">
                 <nav>
