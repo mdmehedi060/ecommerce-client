@@ -7,6 +7,10 @@ import Signup from '../Pages/Signup';
 import AdminPanel from '../Pages/AdminPanel';
 import AllUsers from '../Pages/AllUsers';
 import AllProducts from '../Pages/AllProducts';
+import CategoryProduct from '../Pages/CategoryProduct';
+import ProductDetails from '../Pages/ProductDetails';
+import Cart from '../Pages/Cart';
+import SearchProduct from '../Pages/SearchProduct';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +32,22 @@ const router = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword></ForgotPassword>,
+      },
+      {
+        path: 'product-category',
+        element: <CategoryProduct />,
+      },
+      {
+        path: 'product/:id',
+        element: <ProductDetails />,
+      },
+      {
+        path: 'cart',
+        element: <Cart />,
+      },
+      {
+        path: 'search',
+        element: <SearchProduct />,
       },
       {
         path: '/admin-panel',

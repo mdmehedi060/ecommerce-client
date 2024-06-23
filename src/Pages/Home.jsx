@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <CategoryList />
-      {/* <BannerProduct /> */}
+      <BannerProduct />
 
       <HorizontalCardProduct category={'airpodes'} heading={"Top's Airpodes"} />
       <HorizontalCardProduct
