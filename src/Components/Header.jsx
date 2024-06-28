@@ -64,7 +64,6 @@ const Header = () => {
             <h1 className="text-2xl text-sky-400 font-bold">Tangail Shop</h1>
           </Link>
         </div>
-
         <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2">
           <input
             type="text"
@@ -96,15 +95,7 @@ const Header = () => {
                 )}
               </div>
             )}
-            {/* <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded">
-              <Link
-                to={'/admin-panel'}
-                className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
-                onClick={() => setMenuDisplay(preve => !preve)}
-              >
-                Admin Panel
-              </Link>
-            </div> */}
+
             {menuDisplay && (
               <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded">
                 <nav>
@@ -117,6 +108,13 @@ const Header = () => {
                       Admin Panel
                     </Link>
                   )}
+                  <Link
+                    to={'/order'}
+                    className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
+                    onClick={() => setMenuDisplay(preve => !preve)}
+                  >
+                    User
+                  </Link>
                 </nav>
               </div>
             )}

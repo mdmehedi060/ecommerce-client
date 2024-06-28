@@ -72,7 +72,7 @@ const CategoryProduct = () => {
       return `category=${el}&&`;
     });
 
-    navigate('/product-category?' + urlFormat.join(''));
+    navigate('/product-category?' + urlFormat?.join(''));
   }, [selectCategory]);
 
   const handleOnChangeSortBy = e => {
