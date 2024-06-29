@@ -1,5 +1,5 @@
-// const backendDomin = 'http://localhost:8080';
-const backendDomin = process.env.VITE_REACT_APP_BACKEND_URL;
+const backendDomin = 'http://localhost:8080';
+// const backendDomin = process.env.VITE_REACT_APP_BACKEND_URL;
 const SummaryApi = {
   signUP: {
     url: `${backendDomin}/api/signup`,
@@ -86,10 +86,10 @@ const SummaryApi = {
     url: `${backendDomin}/api/order-list`,
     method: 'get',
   },
-  // allOrder: {
-  //   url: `${backendDomin}/api/all-order`,
-  //   method: 'get',
-  // },
+  allOrder: {
+    url: `${backendDomin}/api/all-order`,
+    method: 'get',
+  },
 };
 
 export default SummaryApi;

@@ -101,8 +101,8 @@ const Cart = () => {
 
   const handlePayment = async () => {
     const stripePromise = await loadStripe(
-      // 'pk_test_51OEi8IAFncrwO5BHfeF0WrLBZQY8u5df0hWoaO00rad86jwkiRvSvxpoG1AAGNaBicEGfJeX9bwr57TeaIu8Gcry004rn8ZLPW'
-      import.meta.env.VITE_REACT_APP_STRIPE_PUBLIC_KEY
+      'pk_test_51OEi8IAFncrwO5BHfeF0WrLBZQY8u5df0hWoaO00rad86jwkiRvSvxpoG1AAGNaBicEGfJeX9bwr57TeaIu8Gcry004rn8ZLPW'
+      // import.meta.env.VITE_REACT_APP_STRIPE_PUBLIC_KEY
     );
     const response = await fetch(SummaryApi.payment.url, {
       method: SummaryApi.payment.method,

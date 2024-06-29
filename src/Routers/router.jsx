@@ -14,6 +14,7 @@ import SearchProduct from '../Pages/SearchProduct';
 import Success from '../Pages/Success';
 import Cancel from '../Pages/Cancel';
 import OrderPage from '../Pages/OrderPage';
+import AllOrder from '../Pages/AllOrder';
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
           {
             path: '/admin-panel/all-products',
             element: <AllProducts></AllProducts>,
+          },
+          {
+            path: '/admin-panel/all-orders',
+            element: <AllOrder />,
           },
         ],
       },
