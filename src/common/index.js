@@ -1,5 +1,5 @@
 // const backendDomin = 'http://localhost:8080';
-const backendDomin = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+const backendDomin = process.env.VITE_REACT_APP_BACKEND_URL;
 const SummaryApi = {
   signUP: {
     url: `${backendDomin}/api/signup`,
